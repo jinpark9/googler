@@ -14,7 +14,8 @@ import {
   View,
   Text,
   StatusBar,
-  Image
+  Image,
+  Button
 } from 'react-native';
 
 import {
@@ -45,13 +46,29 @@ const App: () => React$Node = () => {
               resizeMode="cover"
             />
           </View>
-          {global.HermesInternal == null ? null : (
+          {/* {global.HermesInternal == null ? null : (
             <View style={styles.engine}>
               <Text style={styles.footer}>Engine: Hermes</Text>
             </View>
-          )}
+          )} */}
           <View style={styles.body}>
-            <View style={styles.sectionContainer}>
+            <View style={styles.horizontalContainer}>
+              <Button
+                style={{
+                  flex:2,
+                  padding:10
+                }}
+                title="Google Now"
+              />
+              <Button
+                style={{
+                  flex:2,
+                  padding:10
+                }}
+                title="Google Later"
+              />
+            </View>
+            {/* <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Step One</Text>
               <Text style={styles.sectionDescription}>
                 Edit <Text style={styles.highlight}>App.js</Text> to change this
@@ -75,11 +92,8 @@ const App: () => React$Node = () => {
               <Text style={styles.sectionDescription}>
                 Read the docs to discover what to do next:
               </Text>
-            </View>
+            </View> */}
             {/* <LearnMoreLinks /> */}
-          </View>
-          <View>
-            <Text> hello world </Text>
           </View>
         </ScrollView>     
       </SafeAreaView>
@@ -112,6 +126,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '400',
     color: Colors.dark,
+  },
+  horizontalContainer: {
+    flexDirection: "row",
+    justifyContent:"space-evenly",
+    marginTop: 32,
+    paddingHorizontal: 24
   },
   highlight: {
     fontWeight: '700',
