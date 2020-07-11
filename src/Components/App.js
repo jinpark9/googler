@@ -14,6 +14,7 @@ import {
   View,
   Text,
   StatusBar,
+  Image
 } from 'react-native';
 
 import {
@@ -32,7 +33,18 @@ const App: () => React$Node = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          <Header />
+          {/* <Header /> */}
+          <View>
+            <Image
+              style={{
+                flex:1,
+                width:null,
+                height: 200
+              }}
+              source={require('../assets/google2.0.0.png')}
+              resizeMode="cover"
+            />
+          </View>
           {global.HermesInternal == null ? null : (
             <View style={styles.engine}>
               <Text style={styles.footer}>Engine: Hermes</Text>
@@ -64,9 +76,12 @@ const App: () => React$Node = () => {
                 Read the docs to discover what to do next:
               </Text>
             </View>
-            <LearnMoreLinks />
+            {/* <LearnMoreLinks /> */}
           </View>
-        </ScrollView>
+          <View>
+            <Text> hello world </Text>
+          </View>
+        </ScrollView>     
       </SafeAreaView>
     </>
   );
