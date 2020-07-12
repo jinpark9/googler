@@ -4,6 +4,7 @@ import {
   ScrollView,
   View,
   Text,
+  ActivityIndicator
 } from 'react-native'
 import { WebView } from 'react-native-webview'
 
@@ -14,14 +15,24 @@ class SearchResults extends Component {
 
   render() {
     return (
-      <WebView
-        source={{
-          uri: 'https://www.google.com'
-        }}
-      />
-      // <View>
-      //   <Text>hello world</Text>
-      // </View>
+
+        <WebView
+          source={{
+            uri: 'https://www.google.com'
+          }}
+          startInLoadingState={true}
+          renderLoading={() => (
+            <ActivityIndicator
+              color='black'
+              size='large'
+              style={{
+                paddingBottom:300
+              }}
+            />
+          )}
+        />
+
+      
     );
   }
 }
