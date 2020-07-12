@@ -69,6 +69,7 @@ class Home extends Component {
                   padding:10
                 }}
                 title="Google Now"
+                onPress={() => this.props.navigation.navigate('SearchResults')}
               />
               <Button
                 style={{

@@ -3,6 +3,7 @@ import {
   SafeAreaView,
   ScrollView,
   View,
+  Text,
   WebView
 } from 'react-native'
 
