@@ -78,6 +78,12 @@ class Home extends Component {
                 title="Google Later"
               />
             </View>
+            <View>
+              <Button
+                style={styles.horizontalContainer}
+                title="What was I going to google?"
+              />
+            </View>
           </View>
         </ScrollView>     
       </SafeAreaView>
