@@ -4,8 +4,8 @@ import {
   ScrollView,
   View,
   Text,
-  WebView
 } from 'react-native'
+import { WebView } from 'react-native-webview'
 
 class SearchResults extends Component {
   constructor() {
@@ -14,9 +14,14 @@ class SearchResults extends Component {
 
   render() {
     return (
-      <View>
-        <Text>hello world</Text>
-      </View>
+      <WebView
+        source={{
+          uri: 'https://www.google.com'
+        }}
+      />
+      // <View>
+      //   <Text>hello world</Text>
+      // </View>
     );
   }
 }
