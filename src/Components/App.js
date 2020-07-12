@@ -1,6 +1,5 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * Googler React Native App
  *
  * @format
  * @flow strict-local
@@ -26,6 +25,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import Home from './Home'
+import SearchResults from './SearchResults'
 
 const Stack = createStackNavigator();
 
@@ -37,12 +37,6 @@ class App extends Component {
     };
   }
 
-  // updateSearchText(inputText) {
-  //   this.setState( {
-  //     searchText:inputText
-  //   });
-  // }
-
   render() {
     return (
       <NavigationContainer>
@@ -50,6 +44,11 @@ class App extends Component {
           <Stack.Screen
             name="Home"
             component={Home}
+            options={{title: ''}}
+          />
+          <Stack.Screen
+            name="SearchResults"
+            component={SearchResults}
             options={{title: ''}}
           />
         </Stack.Navigator>
