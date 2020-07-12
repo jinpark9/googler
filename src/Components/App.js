@@ -13,93 +13,87 @@ import {
   ScrollView,
   View,
   Text,
+  TextInput,
   StatusBar,
   Image,
   Button
 } from 'react-native';
 
 import {
-  Header,
-  LearnMoreLinks,
   Colors,
-  DebugInstructions,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          {/* <Header /> */}
-          <View>
-            <Image
-              style={{
-                flex:1,
-                width:null,
-                height: 200
-              }}
-              source={require('../assets/google2.0.0.png')}
-              resizeMode="cover"
-            />
-          </View>
-          {/* {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )} */}
-          <View style={styles.body}>
-            <View style={styles.horizontalContainer}>
-              <Button
+class App extends React.Component {
+  constructor () {
+    super();
+    this.state = {
+      searchText:"",
+    };
+  }
+
+  updateSearchText(inputText) {
+    this.setState( {
+      searchText:inputText
+    });
+  }
+
+  render() {
+    return (
+      <>
+        <StatusBar barStyle="dark-content" />
+        <SafeAreaView>
+          <ScrollView
+            contentInsetAdjustmentBehavior="automatic"
+            style={styles.scrollView}>
+
+            {/* googler image */}
+            <View>
+              <Image
                 style={{
-                  flex:2,
-                  padding:10
+                  flex:1,
+                  width:null,
+                  height: 200
                 }}
-                title="Google Now"
-              />
-              <Button
-                style={{
-                  flex:2,
-                  padding:10
-                }}
-                title="Google Later"
+                source={require('../assets/google2.0.0.png')}
+                resizeMode="cover"
               />
             </View>
-            {/* <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
+            <View style={styles.body}>
+              <View>
+                <TextInput
+                  style={{
+                    height:null,
+                    borderColor:'gray',
+                    paddingLeft:20
+                  }}
+                  placeholder="enter your search text!"
+                  onChangeText={input => this.updateSearchText(input)}
+                  value={this.state.searchText}
+                />
+              </View>
+              <View style={styles.horizontalContainer}>
+                <Button
+                  style={{
+                    flex:2,
+                    padding:10
+                  }}
+                  title="Google Now"
+                />
+                <Button
+                  style={{
+                    flex:2,
+                    padding:10
+                  }}
+                  title="Google Later"
+                />
+              </View>
             </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View> */}
-            {/* <LearnMoreLinks /> */}
-          </View>
-        </ScrollView>     
-      </SafeAreaView>
-    </>
-  );
-};
+          </ScrollView>     
+        </SafeAreaView>
+      </>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   scrollView: {
