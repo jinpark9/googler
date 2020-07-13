@@ -4,9 +4,9 @@ import {
   ScrollView,
   View,
   Text,
-  ActivityIndicator
-} from 'react-native'
-import { WebView } from 'react-native-webview'
+  ActivityIndicator,
+} from 'react-native';
+import { WebView } from 'react-native-webview';
 
 class SearchResults extends Component {
   constructor() {
@@ -18,24 +18,22 @@ class SearchResults extends Component {
 
   render() {
     return (
-        <WebView
-          source={{
-            // uri: `https://www.google.com/search?q=${this.state.searchText}&btnI`
-            uri: `https://duckduckgo.com/?q=!ducky+${this.state.searchText}`
-          }}
-          startInLoadingState={true}
-          renderLoading={() => (
-            <ActivityIndicator
-              color='black'
-              size='large'
-              style={{
-                paddingBottom:300
-              }}
-            />
-          )}
-        />
-
-      
+      <WebView
+        source={{
+          // uri: `https://www.google.com/search?q=${this.state.searchText}&btnI`
+          uri: `https://duckduckgo.com/?q=!ducky+${this.state.searchText}`
+        }}
+        startInLoadingState={true}
+        renderLoading={() => (
+          <ActivityIndicator
+            color='black'
+            size='large'
+            style={{
+              paddingBottom:300
+            }}
+          />
+        )}
+      />
     );
   }
 }

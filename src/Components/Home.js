@@ -9,11 +9,25 @@ import {
   TextInput,
   StatusBar,
   Image,
-  Button
+  Button,
+  Alert
 } from 'react-native';
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
+import AsyncStorage from '@react-native-community/async-storage';
+
+const storeSearch = async (value) => {
+  try {
+    const jsonVal = JSON.stringify(value)
+    await AsyncStorage.setItem('@storage_Key', jsonVal)
+    console.log("data saved: ", jsonVal);
+  } catch (e) {
+    Alert("error saving entry");
+  } finally {
+    
+  }
+}
 
 class Home extends Component {
   constructor () {
@@ -21,6 +35,7 @@ class Home extends Component {
     this.state = {
       searchText:"",
     };
+    this.saveSearchText = this.saveSearchText.bind(this);
   }
 
   updateSearchText(inputText) {
@@ -29,9 +44,12 @@ class Home extends Component {
     });
   }
 
+  saveSearchText(inputText) {
+    storeSearch(inputText);
+  }
+
   render() {
     return (
-      // <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
@@ -77,6 +95,7 @@ class Home extends Component {
                   padding:10
                 }}
                 title="Google Later"
+                onPress={() => this.saveSearchText(this.state.searchText)}
               />
             </View>
             <View>
