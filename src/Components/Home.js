@@ -46,6 +46,9 @@ class Home extends Component {
 
   saveSearchText(inputText) {
     storeSearch(inputText);
+    this.setState({
+      searchText:""
+    });
   }
 
   render() {
