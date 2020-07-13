@@ -11,14 +11,17 @@ import { WebView } from 'react-native-webview'
 class SearchResults extends Component {
   constructor() {
     super();
+    this.state = {
+      searchText:"ohlone land"
+    };
   }
 
   render() {
     return (
-
         <WebView
           source={{
-            uri: 'https://www.google.com'
+            // uri: `https://www.google.com/search?q=${this.state.searchText}&btnI`
+            uri: `https://duckduckgo.com/?q=!ducky+${this.state.searchText}`
           }}
           startInLoadingState={true}
           renderLoading={() => (
