@@ -19,13 +19,21 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const storeSearch = async (value) => {
   try {
-    const jsonVal = JSON.stringify(value)
-    await AsyncStorage.setItem('@storage_Key', jsonVal)
+    const jsonVal = JSON.stringify(value);
+    await AsyncStorage.setItem('@searches_Key', jsonVal);
     console.log("data saved: ", jsonVal);
   } catch (e) {
-    Alert("error saving entry");
-  } finally {
-    
+    Alert("error saving entry: ", e);
+  }
+}
+
+const getData = async () => {
+  try {
+    const value = await AsyncStorage.getItem('@searches_Key');
+    console.log("get data value:",value);
+    return value;
+  } catch(e) {
+    Alert("alert",e);
   }
 }
 
@@ -45,7 +53,26 @@ class Home extends Component {
   }
 
   saveSearchText(inputText) {
-    storeSearch(inputText);
+    //Not sure what's going on with whatever string is 
+    //being fetched in getData()
+
+    // get data string
+    getData()
+    .then(result => {
+      console.log("promises?",result);
+      var data = JSON.parse(result);
+      data.push(inputText);
+      console.log("data: ", data);
+      storeSearch(data);
+    });
+
+    //stringify the list
+    
+    
+    //set data string
+    // var data = [];
+
+    
     this.setState({
       searchText:""
     });

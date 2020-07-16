@@ -37,8 +37,6 @@ class SearchResults extends Component {
     return (
       <WebView
         source={{
-          // uri: `https://www.google.com/search?q=${this.state.searchText}`
-          // uri: `https://duckduckgo.com/?q=${this.state.duckyText}${this.state.searchText}`
           uri: `${this.state.searchEngine}${this.state.searchText}`
         }}
         startInLoadingState={true}
