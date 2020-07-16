@@ -18,20 +18,27 @@ class SearchResults extends Component {
       regularSearch:"https://www.google.com/search?q=",
       duckyButton: "View Ducky Search",
       googleButton: "View Google Search Results",
+      buttonText: "",
       ducky:true,
       searchEngine:""
     };
   }
 
   componentDidMount() {
+    this.setDuckySettings();
+  }
+
+  setDuckySettings() {
     if (this.state.ducky) {
       this.setState({
-        searchEngine:this.state.duckySearch
+        searchEngine:this.state.duckySearch,
+        buttonText: this.state.googleButton
       });
     }
     else { 
       this.setState({
-        searchEngine:this.state.regularSearch
+        searchEngine:this.state.regularSearch,
+        buttonText:this.state.duckyButton
       });
     }
   }
@@ -43,11 +50,12 @@ class SearchResults extends Component {
       >
         <Button
           style={{flex:1, paddingBottom:24}}
-          title={this.state.googleButton}
+          title={this.state.buttonText}
           onPress={() => {
-            this.setState( {
-              searchEngine:this.state.regularSearch
-            })
+            this.setState({
+              ducky: !this.state.ducky
+            });
+            this.setDuckySettings();
           }}
         />
       <WebView
