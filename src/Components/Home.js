@@ -37,6 +37,16 @@ const getData = async () => {
   }
 }
 
+const removeSearches = async() => {
+  const key = '@searches_Key';
+  try {
+    await AsyncStorage.removeItem(key);
+  } catch(e) {
+    Alert("alert:", e);
+  }
+  console.log("Search requests cleared");
+}
+
 class Home extends Component {
   constructor () {
     super();
@@ -53,26 +63,32 @@ class Home extends Component {
   }
 
   saveSearchText(inputText) {
-    //Not sure what's going on with whatever string is 
-    //being fetched in getData()
+    //ignore empty search requests
+    if (inputText == "") {
+      console.log("ignoring empty search request");
+      return;
+    }
 
-    // get data string
+    // get previous search requests
     getData()
+    // then add the new search request
     .then(result => {
-      console.log("promises?",result);
-      var data = JSON.parse(result);
-      data.push(inputText);
-      console.log("data: ", data);
-      storeSearch(data);
+      // if the search request list is not empty,
+      // append and store the list again
+      if (result !== null) {
+        console.log("promises?",result);
+        var data = JSON.parse(result);
+        data.push(inputText);
+        console.log("data: ", data);
+        storeSearch(data);
+      }
+      // otherwise start the list!
+      else {
+        storeSearch([inputText]);
+      }
     });
-
-    //stringify the list
     
-    
-    //set data string
-    // var data = [];
-
-    
+    //clear the search bar
     this.setState({
       searchText:""
     });
@@ -132,6 +148,13 @@ class Home extends Component {
               <Button
                 style={styles.horizontalContainer}
                 title="What was I going to google?"
+              />
+            </View>
+            <View>
+              <Button
+                style={styles.horizontalContainer}
+                title="Clear search requests"
+                onPress={() => removeSearches()}
               />
             </View>
           </View>
