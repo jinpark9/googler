@@ -9,10 +9,10 @@ import {
 import { WebView } from 'react-native-webview';
 
 class SearchResults extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      searchText:"ohlone land",
+      searchText: this.props.route.params.searchText,
       duckyText:"https://duckduckgo.com/?q=!ducky+",
       regularText:"https://www.google.com/search?q=",
       ducky:true,
