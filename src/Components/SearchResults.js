@@ -5,6 +5,7 @@ import {
   View,
   Text,
   ActivityIndicator,
+  Button,
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 
@@ -13,8 +14,10 @@ class SearchResults extends Component {
     super(props);
     this.state = {
       searchText: this.props.route.params.searchText,
-      duckyText:"https://duckduckgo.com/?q=!ducky+",
-      regularText:"https://www.google.com/search?q=",
+      duckySearch:"https://duckduckgo.com/?q=!ducky+",
+      regularSearch:"https://www.google.com/search?q=",
+      duckyButton: "View Ducky Search",
+      googleButton: "View Google Search Results",
       ducky:true,
       searchEngine:""
     };
@@ -23,18 +26,30 @@ class SearchResults extends Component {
   componentDidMount() {
     if (this.state.ducky) {
       this.setState({
-        searchEngine:this.state.duckyText
+        searchEngine:this.state.duckySearch
       });
     }
     else { 
       this.setState({
-        searchEngine:this.state.regularText
+        searchEngine:this.state.regularSearch
       });
     }
   }
 
   render() {
     return (
+      <View
+        style={{flex:1}}
+      >
+        <Button
+          style={{flex:1, paddingBottom:24}}
+          title={this.state.googleButton}
+          onPress={() => {
+            this.setState( {
+              searchEngine:this.state.regularSearch
+            })
+          }}
+        />
       <WebView
         source={{
           uri: `${this.state.searchEngine}${this.state.searchText}`
@@ -50,6 +65,9 @@ class SearchResults extends Component {
           />
         )}
       />
+      
+        
+      </View>
     );
   }
 }
