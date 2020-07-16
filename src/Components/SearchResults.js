@@ -20,7 +20,8 @@ class SearchResults extends Component {
       googleButton: "View Google Search Results",
       buttonText: "",
       ducky:true,
-      searchEngine:""
+      searchEngine:"",
+      loading:true
     };
   }
 
@@ -45,9 +46,7 @@ class SearchResults extends Component {
 
   render() {
     return (
-      <View
-        style={{flex:1}}
-      >
+      <View style={{flex:1}}>
         <Button
           style={{flex:1, paddingBottom:24}}
           title={this.state.buttonText}
@@ -58,12 +57,24 @@ class SearchResults extends Component {
             this.setDuckySettings();
           }}
         />
-      <WebView
-        source={{
-          uri: `${this.state.searchEngine}${this.state.searchText}`
-        }}
-        startInLoadingState={true}
-        renderLoading={() => (
+        <WebView
+          source={{
+            uri: `${this.state.searchEngine}${this.state.searchText}`
+          }}
+          onLoadStart={() => (
+            this.setState({
+              loading: true
+            })
+          )}
+          onLoad={() => (
+            this.setState({
+              loading: false
+            })
+          )}
+        />
+
+        {/* display loading spinner based on loading state */}
+        {this.state.loading && (
           <ActivityIndicator
             color='black'
             size='large'
@@ -72,9 +83,6 @@ class SearchResults extends Component {
             }}
           />
         )}
-      />
-      
-        
       </View>
     );
   }
