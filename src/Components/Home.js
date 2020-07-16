@@ -16,6 +16,7 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 import AsyncStorage from '@react-native-community/async-storage';
+import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
 
 const storeSearch = async (value) => {
   try {
@@ -30,7 +31,7 @@ const storeSearch = async (value) => {
 const getData = async () => {
   try {
     const value = await AsyncStorage.getItem('@searches_Key');
-    console.log("get data value:",value);
+    console.log("getData result:",value);
     return value;
   } catch(e) {
     Alert("alert",e);
@@ -52,6 +53,7 @@ class Home extends Component {
     super();
     this.state = {
       searchText:"",
+      firstRequest:null,
     };
     this.saveSearchText = this.saveSearchText.bind(this);
   }
@@ -76,22 +78,40 @@ class Home extends Component {
       // if the search request list is not empty,
       // append and store the list again
       if (result !== null) {
-        console.log("promises?",result);
         var data = JSON.parse(result);
         data.push(inputText);
-        console.log("data: ", data);
         storeSearch(data);
       }
       // otherwise start the list!
       else {
         storeSearch([inputText]);
       }
-    });
+    })
+    .catch(e => Alert("error: ", e));
     
     //clear the search bar
     this.setState({
       searchText:""
     });
+  }
+
+  getFirstSearchRequest() {
+    getData()
+    .then(result => {
+      var data = JSON.parse(result);
+      if (data.length != 0) {
+        this.setState({
+          firstRequest: data.shift()
+        });
+        storeSearch(data);
+        console.log("first search: ", this.state.firstRequest);
+        this.props.navigation.navigate('SearchResults', {searchText: this.state.firstRequest});
+      }
+      else {
+        console.log("you haven't had anything to google lately...");
+      }
+    })
+    .catch(e => Alert("error: ", e));
   }
 
   render() {
@@ -148,6 +168,10 @@ class Home extends Component {
               <Button
                 style={styles.horizontalContainer}
                 title="What was I going to google?"
+                onPress={() => {
+                  this.getFirstSearchRequest();
+                  
+                }}
               />
             </View>
             <View>
