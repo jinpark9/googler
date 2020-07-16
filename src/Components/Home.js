@@ -16,9 +16,8 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 import AsyncStorage from '@react-native-community/async-storage';
-import DrawerLayout from 'react-native-gesture-handler/DrawerLayout';
 
-const storeSearch = async (value) => {
+export const storeSearch = async (value) => {
   try {
     const jsonVal = JSON.stringify(value);
     await AsyncStorage.setItem('@searches_Key', jsonVal);
@@ -28,7 +27,7 @@ const storeSearch = async (value) => {
   }
 }
 
-const getData = async () => {
+export const getData = async () => {
   try {
     const value = await AsyncStorage.getItem('@searches_Key');
     console.log("getData result:",value);

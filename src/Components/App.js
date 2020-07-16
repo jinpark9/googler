@@ -49,7 +49,9 @@ class App extends Component {
           <Stack.Screen
             name="SearchResults"
             component={SearchResults}
-            options={{title: ''}}
+            options={{
+              title: '',
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>

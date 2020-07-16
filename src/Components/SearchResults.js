@@ -8,6 +8,8 @@ import {
   Button,
 } from 'react-native';
 import { WebView } from 'react-native-webview';
+import AsyncStorage from '@react-native-community/async-storage';
+import { getData, storeSearch } from './Home';
 
 class SearchResults extends Component {
   constructor(props) {
@@ -42,6 +44,25 @@ class SearchResults extends Component {
         buttonText:this.state.duckyButton
       });
     }
+  }
+
+  getNextSearch() {
+    getData()
+    .then(result => {
+      var data = JSON.parse(result);
+      if (data.length != 0) {
+        this.setState({
+          searchText: data.shift()
+        });
+        storeSearch(data);
+        console.log("next search: ", this.state.searchText);
+      }
+      else {
+        console.log("Out of searches!");
+        this.props.navigation.navigate('Home');
+      }
+    })
+    .catch(e => Alert("error getting next search: ", e));
   }
 
   render() {
@@ -83,6 +104,10 @@ class SearchResults extends Component {
             }}
           />
         )}
+        <Button
+          title="Next"
+          onPress={() => this.getNextSearch()}
+        />
       </View>
     );
   }
