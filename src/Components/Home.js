@@ -16,37 +16,9 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 import AsyncStorage from '@react-native-community/async-storage';
-import MyHeader from './MyHeader'
+import MyHeader from './MyHeader';
 
-export const storeSearch = async (value) => {
-  try {
-    const jsonVal = JSON.stringify(value);
-    await AsyncStorage.setItem('@searches_Key', jsonVal);
-    console.log("data saved: ", jsonVal);
-  } catch (e) {
-    Alert("error saving entry: ", e);
-  }
-}
-
-export const getData = async () => {
-  try {
-    const value = await AsyncStorage.getItem('@searches_Key');
-    console.log("getData result:",value);
-    return value;
-  } catch(e) {
-    Alert("alert",e);
-  }
-}
-
-const removeSearches = async() => {
-  const key = '@searches_Key';
-  try {
-    await AsyncStorage.removeItem(key);
-  } catch(e) {
-    Alert("alert:", e);
-  }
-  console.log("Search requests cleared");
-}
+import { getData, storeSearch, removeSearches } from './Storage';
 
 class Home extends Component {
   constructor () {
@@ -72,7 +44,7 @@ class Home extends Component {
     }
 
     // get previous search requests
-    getData()
+    getData('@searches_Key')
     // then add the new search request
     .then(result => {
       // if the search request list is not empty,
@@ -96,16 +68,21 @@ class Home extends Component {
   }
 
   getFirstSearchRequest() {
-    getData()
+    getData('@searches_Key')
     .then(result => {
-      var data = JSON.parse(result);
-      if (data.length != 0) {
-        this.setState({
-          firstRequest: data.shift()
-        });
-        storeSearch(data);
-        console.log("first search: ", this.state.firstRequest);
-        this.props.navigation.navigate('SearchResults', {searchText: this.state.firstRequest});
+      if (result !== null) {
+        var data = JSON.parse(result);
+        if (data.length != 0) {
+          this.setState({
+            firstRequest: data.shift()
+          });
+          storeSearch(data);
+          console.log("first search: ", this.state.firstRequest);
+          this.props.navigation.navigate('SearchResults', {searchText: this.state.firstRequest});
+        }
+        else {
+          console.log("you haven't had anything to google lately...");
+        }
       }
       else {
         console.log("you haven't had anything to google lately...");

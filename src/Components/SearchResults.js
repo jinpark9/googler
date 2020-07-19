@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import AsyncStorage from '@react-native-community/async-storage';
-import { getData, storeSearch } from './Home';
+import { getData, storeSearch } from './Storage';
 import MyHeader from './MyHeader'
 
 class SearchResults extends Component {
@@ -48,7 +48,7 @@ class SearchResults extends Component {
   }
 
   getNextSearch() {
-    getData()
+    getData('@searches_Key')
     .then(result => {
       var data = JSON.parse(result);
       if (data.length != 0) {
