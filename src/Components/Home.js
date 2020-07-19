@@ -20,6 +20,8 @@ import MyHeader from './MyHeader';
 
 import { getData, storeSearch, clearList } from './Storage';
 
+const SEARCHES_KEY = '@searches_Key'
+
 class Home extends Component {
   constructor () {
     super();
@@ -44,7 +46,7 @@ class Home extends Component {
     }
 
     // get previous search requests
-    getData('@searches_Key')
+    getData(SEARCHES_KEY)
     // then add the new search request
     .then(result => {
       // if the search request list is not empty,
@@ -52,11 +54,11 @@ class Home extends Component {
       if (result !== null) {
         var data = JSON.parse(result);
         data.push(inputText);
-        storeSearch(data,'@searches_Key');
+        storeSearch(data,SEARCHES_KEY);
       }
       // otherwise start the list!
       else {
-        storeSearch([inputText],'@searches_Key');
+        storeSearch([inputText],SEARCHES_KEY);
       }
     })
     .catch(e => Alert("error: ", e));
@@ -68,7 +70,7 @@ class Home extends Component {
   }
 
   getFirstSearchRequest() {
-    getData('@searches_Key')
+    getData(SEARCHES_KEY)
     .then(result => {
       if (result !== null) {
         var data = JSON.parse(result);
@@ -76,7 +78,7 @@ class Home extends Component {
           this.setState({
             firstRequest: data.shift()
           });
-          storeSearch(data,'@searches_Key');
+          storeSearch(data,SEARCHES_KEY);
           console.log("first search: ", this.state.firstRequest);
           this.props.navigation.navigate('SearchResults', {searchText: this.state.firstRequest});
         }
@@ -168,7 +170,7 @@ class Home extends Component {
               <Button
                 style={styles.horizontalContainer}
                 title="Clear search requests"
-                onPress={() => clearList('@searches_Key')}
+                onPress={() => clearList(SEARCHES_KEY)}
               />
             </View>
           </View>
