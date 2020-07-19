@@ -28,6 +28,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import Home from './Home';
 import SearchResults from './SearchResults';
 import History from './History';
+import SearchQueue from './SearchQueue';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -64,6 +65,7 @@ class App extends Component {
         <Drawer.Navigator initialRouteName="Splash">
           <Drawer.Screen name="Home" component={SearchNavigation} />
           <Drawer.Screen name="History" component={History} />
+          <Drawer.Screen name="Search Queue" component={SearchQueue} />
         </Drawer.Navigator>
       </NavigationContainer>
     );
