@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 import AsyncStorage from '@react-native-community/async-storage';
-import { getData, storeSearch } from './Storage';
+import { getData, storeSearch, updateList } from './Storage';
 import MyHeader from './MyHeader'
 
 class SearchResults extends Component {
@@ -56,6 +56,7 @@ class SearchResults extends Component {
           searchText: data.shift()
         });
         storeSearch(data,'@searches_Key');
+        updateList(this.state.searchText, '@history_Key');
         console.log("next search: ", this.state.searchText);
       }
       else {

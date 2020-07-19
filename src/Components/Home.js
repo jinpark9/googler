@@ -18,9 +18,10 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import MyHeader from './MyHeader';
 
-import { getData, storeSearch, clearList } from './Storage';
+import { getData, storeSearch, clearList, updateList } from './Storage';
 
-const SEARCHES_KEY = '@searches_Key'
+const SEARCHES_KEY = '@searches_Key';
+const HISTORY_KEY = '@history_Key'
 
 class Home extends Component {
   constructor () {
@@ -39,30 +40,7 @@ class Home extends Component {
   }
 
   saveSearchText(inputText) {
-    //ignore empty search requests
-    if (inputText == "") {
-      console.log("ignoring empty search request");
-      return;
-    }
-
-    // get previous search requests
-    getData(SEARCHES_KEY)
-    // then add the new search request
-    .then(result => {
-      // if the search request list is not empty,
-      // append and store the list again
-      if (result !== null) {
-        var data = JSON.parse(result);
-        data.push(inputText);
-        storeSearch(data,SEARCHES_KEY);
-      }
-      // otherwise start the list!
-      else {
-        storeSearch([inputText],SEARCHES_KEY);
-      }
-    })
-    .catch(e => Alert("error: ", e));
-    
+    updateList(inputText, SEARCHES_KEY)
     //clear the search bar
     this.setState({
       searchText:""
@@ -80,6 +58,7 @@ class Home extends Component {
           });
           storeSearch(data,SEARCHES_KEY);
           console.log("first search: ", this.state.firstRequest);
+          updateList(this.state.firstRequest, HISTORY_KEY);
           this.props.navigation.navigate('SearchResults', {searchText: this.state.firstRequest});
         }
         else {
@@ -140,6 +119,7 @@ class Home extends Component {
                 title="Google Now"
                 onPress={() => {
                   if (this.state.searchText != "") {
+                    updateList(this.state.searchText, HISTORY_KEY)
                     this.props.navigation.navigate('SearchResults', {searchText: this.state.searchText})
                   }
                   else {
