@@ -136,11 +136,14 @@ class Home extends Component {
             <View>
               <TextInput
                 style={{
-                  height:null,
-                  borderColor:'gray',
+                  height:60,
+                  backgroundColor:'white',
+                  color:'black',
+                  borderColor:'black',
                   paddingLeft:20
                 }}
                 placeholder="enter your search text!"
+                placeholderTextColor='black'
                 onChangeText={input => this.updateSearchText(input)}
                 value={this.state.searchText}
               />

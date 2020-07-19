@@ -19,15 +19,17 @@ import {
 } from 'react-native';
 import 'react-native-gesture-handler';
 import {
-  Colors,
+  Colors, Header,
 } from 'react-native/Libraries/NewAppScreen';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Home from './Home'
 import SearchResults from './SearchResults'
 
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 class App extends Component {
   constructor () {
@@ -40,6 +42,11 @@ class App extends Component {
   render() {
     return (
       <NavigationContainer>
+        {/* <Drawer.Navigator initialRouteName="Home">
+          <Drawer.Screen name="Home" component={Home} />
+          <Drawer.Screen name="SearchResults" component={SearchResults} />
+        </Drawer.Navigator> */}
+
         <Stack.Navigator>
           <Stack.Screen
             name="Home"
