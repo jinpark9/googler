@@ -16,6 +16,7 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 import AsyncStorage from '@react-native-community/async-storage';
+import MyHeader from './MyHeader'
 
 export const storeSearch = async (value) => {
   try {
@@ -116,6 +117,9 @@ class Home extends Component {
   render() {
     return (
       <SafeAreaView>
+        <View>
+          <MyHeader/>
+        </View>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>

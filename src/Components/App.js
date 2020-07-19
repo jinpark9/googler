@@ -42,12 +42,12 @@ class App extends Component {
   render() {
     return (
       <NavigationContainer>
-        {/* <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Navigator initialRouteName="Home">
           <Drawer.Screen name="Home" component={Home} />
           <Drawer.Screen name="SearchResults" component={SearchResults} />
-        </Drawer.Navigator> */}
+        </Drawer.Navigator>
 
-        <Stack.Navigator>
+        {/* <Stack.Navigator>
           <Stack.Screen
             name="Home"
             component={Home}
@@ -60,7 +60,7 @@ class App extends Component {
               title: '',
             }}
           />
-        </Stack.Navigator>
+        </Stack.Navigator> */}
       </NavigationContainer>
     );
   }
