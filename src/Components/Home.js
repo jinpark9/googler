@@ -18,7 +18,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import MyHeader from './MyHeader';
 
-import { getData, storeSearch, removeSearches } from './Storage';
+import { getData, storeSearch, clearList } from './Storage';
 
 class Home extends Component {
   constructor () {
@@ -52,11 +52,11 @@ class Home extends Component {
       if (result !== null) {
         var data = JSON.parse(result);
         data.push(inputText);
-        storeSearch(data);
+        storeSearch(data,'@searches_Key');
       }
       // otherwise start the list!
       else {
-        storeSearch([inputText]);
+        storeSearch([inputText],'@searches_Key');
       }
     })
     .catch(e => Alert("error: ", e));
@@ -76,7 +76,7 @@ class Home extends Component {
           this.setState({
             firstRequest: data.shift()
           });
-          storeSearch(data);
+          storeSearch(data,'@searches_Key');
           console.log("first search: ", this.state.firstRequest);
           this.props.navigation.navigate('SearchResults', {searchText: this.state.firstRequest});
         }
@@ -136,7 +136,14 @@ class Home extends Component {
                   padding:10
                 }}
                 title="Google Now"
-                onPress={() => this.props.navigation.navigate('SearchResults', {searchText: this.state.searchText})}
+                onPress={() => {
+                  if (this.state.searchText != "") {
+                    this.props.navigation.navigate('SearchResults', {searchText: this.state.searchText})
+                  }
+                  else {
+                    console.log("empty search field");
+                  }
+                }}
               />
               <Button
                 style={{
@@ -161,7 +168,7 @@ class Home extends Component {
               <Button
                 style={styles.horizontalContainer}
                 title="Clear search requests"
-                onPress={() => removeSearches()}
+                onPress={() => clearList('@searches_Key')}
               />
             </View>
           </View>

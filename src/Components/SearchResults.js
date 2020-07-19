@@ -55,7 +55,7 @@ class SearchResults extends Component {
         this.setState({
           searchText: data.shift()
         });
-        storeSearch(data);
+        storeSearch(data,'@searches_Key');
         console.log("next search: ", this.state.searchText);
       }
       else {
