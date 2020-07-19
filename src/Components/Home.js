@@ -118,7 +118,7 @@ class Home extends Component {
     return (
       <SafeAreaView>
         <View>
-          <MyHeader/>
+          <MyHeader navigation={this.props.navigation} />
         </View>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"

@@ -10,6 +10,7 @@ import {
 import { WebView } from 'react-native-webview';
 import AsyncStorage from '@react-native-community/async-storage';
 import { getData, storeSearch } from './Home';
+import MyHeader from './MyHeader'
 
 class SearchResults extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class SearchResults extends Component {
       duckyButton: "View Ducky Search",
       googleButton: "View Google Search Results",
       buttonText: "",
-      ducky:true,
+      ducky:false,
       searchEngine:"",
       loading:true
     };
@@ -67,48 +68,51 @@ class SearchResults extends Component {
 
   render() {
     return (
-      <View style={{flex:1}}>
-        <Button
-          style={{flex:1, paddingBottom:24}}
-          title={this.state.buttonText}
-          onPress={() => {
-            this.setState({
-              ducky: !this.state.ducky
-            });
-            this.setDuckySettings();
-          }}
-        />
-        <WebView
-          source={{
-            uri: `${this.state.searchEngine}${this.state.searchText}`
-          }}
-          onLoadStart={() => (
-            this.setState({
-              loading: true
-            })
-          )}
-          onLoad={() => (
-            this.setState({
-              loading: false
-            })
-          )}
-        />
-
-        {/* display loading spinner based on loading state */}
-        {this.state.loading && (
-          <ActivityIndicator
-            color='black'
-            size='large'
-            style={{
-              paddingBottom:300
+      <SafeAreaView
+        style={{ flex:1 }}>
+        <View style={{flex:1}}>
+          <Button
+            style={{flex:1, paddingBottom:24}}
+            title={this.state.buttonText}
+            onPress={() => {
+              this.setState({
+                ducky: !this.state.ducky
+              });
+              this.setDuckySettings();
             }}
           />
-        )}
-        <Button
-          title="Next"
-          onPress={() => this.getNextSearch()}
-        />
-      </View>
+          <WebView
+            source={{
+              uri: `${this.state.searchEngine}${this.state.searchText}`
+            }}
+            onLoadStart={() => (
+              this.setState({
+                loading: true
+              })
+            )}
+            onLoad={() => (
+              this.setState({
+                loading: false
+              })
+            )}
+          />
+
+          {/* display loading spinner based on loading state */}
+          {this.state.loading && (
+            <ActivityIndicator
+              color='black'
+              size='large'
+              style={{
+                paddingBottom:300
+              }}
+            />
+          )}
+          <Button
+            title="Next"
+            onPress={() => this.getNextSearch()}
+          />
+        </View>
+      </SafeAreaView>
     );
   }
 }
