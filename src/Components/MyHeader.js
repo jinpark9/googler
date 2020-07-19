@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Header } from 'react-native-elements';
-// import { useNavigation } from '@react-navigation/native';
 
 const MyHeader = props => {
-  // const navigation = useNavigation();
   return (
     <Header
     backgroundColor='white'
@@ -15,7 +13,8 @@ const MyHeader = props => {
       }}
       rightComponent={{
         icon:'home',
-        color:'black'
+        color:'black',
+        onPress: () => props.navigation.navigate('Home'),
       }}
       statusBarProps={{ barStyle: 'light-content' }}
     />

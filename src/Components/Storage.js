@@ -27,7 +27,7 @@ export const clearList = async(key) => {
   } catch(e) {
     Alert("alert:", e);
   }
-  console.log("Search requests cleared");
+  console.log("List cleared:",key);
 }
 
 export function updateList(inputText,key) {

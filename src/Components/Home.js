@@ -20,8 +20,8 @@ import MyHeader from './MyHeader';
 
 import { getData, storeSearch, clearList, updateList } from './Storage';
 
-const SEARCHES_KEY = '@searches_Key';
-const HISTORY_KEY = '@history_Key'
+export const SEARCHES_KEY = '@searches_Key';
+export const HISTORY_KEY = '@history_Key'
 
 class Home extends Component {
   constructor () {
@@ -75,9 +75,7 @@ class Home extends Component {
   render() {
     return (
       <SafeAreaView>
-        <View>
-          <MyHeader navigation={this.props.navigation} />
-        </View>
+        <MyHeader navigation={this.props.navigation} />
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
