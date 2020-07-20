@@ -71,6 +71,7 @@ class SearchResults extends Component {
     return (
       <SafeAreaView
         style={{ flex:1 }}>
+        <MyHeader navigation={this.props.navigation} />
         <View style={{flex:1}}>
           <Button
             style={{flex:1, paddingBottom:24}}

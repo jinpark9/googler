@@ -22,16 +22,10 @@ class History extends Component {
       searches:[],
       uniqueVal:0
     }
-    this.fillData = this.fillData.bind(this);
+    this.updateData = this.updateData.bind(this);
   }
 
-  forceRemount() {
-    this.setState({
-      uniqueVal: uniqueVal+1
-    })
-  }
-
-  fillData() {
+  updateData() {
     var DATA = [];
     getData(HISTORY_KEY)
     .then(result => {
@@ -62,14 +56,14 @@ class History extends Component {
   }
 
   componentDidMount() {
-    this.fillData();
+    this.updateData();
   }
 
   render() {
     return (
       <SafeAreaView>
         <MyHeader navigation={this.props.navigation} />
-        <View key={this.state.uniqueVal}>
+        <View >
           {
             this.state.searches.map((l,i) => (
               <ListItem
@@ -83,13 +77,13 @@ class History extends Component {
             title="Clear History"
             onPress={() => {
               clearList(HISTORY_KEY);
-              this.fillData();
+              this.updateData();
             }}
           />
           <Button
             title="Refresh"
             onPress={() => {
-              this.fillData();
+              this.updateData();
             }}
           />
         </View>
